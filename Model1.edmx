@@ -1,0 +1,578 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bullseyedbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="categoryName" />
+          </Key>
+          <Property Name="categoryName" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="delivery">
+          <Key>
+            <PropertyRef Name="deliveryID" />
+          </Key>
+          <Property Name="deliveryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="distanceCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="vehicleType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="notes" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employeeID" />
+          </Key>
+          <Property Name="employeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="active" Type="bool" Nullable="false" />
+          <Property Name="PositionID" Type="int" Nullable="false" />
+          <Property Name="siteID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inventory">
+          <Key>
+            <PropertyRef Name="itemID" />
+            <PropertyRef Name="siteID" />
+          </Key>
+          <Property Name="itemID" Type="int" Nullable="false" />
+          <Property Name="siteID" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="itemLocation" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="reorderThreshold" Type="int" />
+          <Property Name="maxReorderWarning" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="itemID" />
+          </Key>
+          <Property Name="itemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="sku" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" />
+          <Property Name="category" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="weight" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="costPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="retailPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="supplierID" Type="int" Nullable="false" />
+          <Property Name="active" Type="bool" Nullable="false" />
+          <Property Name="notes" Type="varchar" MaxLength="255" />
+          <Property Name="caseSize" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="posn">
+          <Key>
+            <PropertyRef Name="positionID" />
+          </Key>
+          <Property Name="positionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="permissionLevel" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="province">
+          <Key>
+            <PropertyRef Name="provinceID" />
+          </Key>
+          <Property Name="provinceID" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="provinceName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="countryCode" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="site">
+          <Key>
+            <PropertyRef Name="siteID" />
+          </Key>
+          <Property Name="siteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="provinceID" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address2" Type="varchar" MaxLength="50" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="postalCode" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="dayOfWeek" Type="varchar" MaxLength="50" />
+          <Property Name="distanceFromWH" Type="int" Nullable="false" />
+          <Property Name="notes" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="supplierID" />
+          </Key>
+          <Property Name="supplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address1" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address2" Type="varchar" MaxLength="50" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="province" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="postalcode" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="contact" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="txn">
+          <Key>
+            <PropertyRef Name="txnID" />
+          </Key>
+          <Property Name="txnID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="siteIDTo" Type="int" Nullable="false" />
+          <Property Name="siteIDFrom" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="shipDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="txnType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="barCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="createdDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="deliveryID" Type="int" />
+          <Property Name="emergencyDelivery" Type="bool" />
+        </EntityType>
+        <EntityType Name="txnaudit">
+          <Key>
+            <PropertyRef Name="txnAuditID" />
+          </Key>
+          <Property Name="txnAuditID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="txnID" Type="int" Nullable="false" />
+          <Property Name="txnType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="txnDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="SiteID" Type="int" Nullable="false" />
+          <Property Name="deliveryID" Type="int" />
+        </EntityType>
+        <EntityType Name="txnitems">
+          <Key>
+            <PropertyRef Name="txnID" />
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="txnID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="txnstatus">
+          <Key>
+            <PropertyRef Name="statusName" />
+          </Key>
+          <Property Name="statusName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="statusDescription" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="txntype">
+          <Key>
+            <PropertyRef Name="txnType" />
+          </Key>
+          <Property Name="txnType" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vehicle">
+          <Key>
+            <PropertyRef Name="vehicleType" />
+          </Key>
+          <Property Name="vehicleType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="maxWeight" Type="decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="HourlyTruckCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="costPerKem" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="notes" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="bullseyedbModelStoreContainer">
+          <EntitySet Name="category" EntityType="Self.category" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="delivery" EntityType="Self.delivery" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="inventory" EntityType="Self.inventory" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="item" EntityType="Self.item" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="posn" EntityType="Self.posn" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="province" EntityType="Self.province" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="site" EntityType="Self.site" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="supplier" EntityType="Self.supplier" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="txn" EntityType="Self.txn" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="txnaudit" EntityType="Self.txnaudit" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="txnitems" EntityType="Self.txnitems" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="txnstatus" EntityType="Self.txnstatus" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="txntype" EntityType="Self.txntype" Schema="bullseyedb" store:Type="Tables" />
+          <EntitySet Name="vehicle" EntityType="Self.vehicle" Schema="bullseyedb" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bullseyedbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="categoryName" />
+          </Key>
+          <Property Name="categoryName" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="delivery">
+          <Key>
+            <PropertyRef Name="deliveryID" />
+          </Key>
+          <Property Name="deliveryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="distanceCost" Type="Decimal" Nullable="false" />
+          <Property Name="vehicleType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employeeID" />
+          </Key>
+          <Property Name="employeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="PositionID" Type="Int32" Nullable="false" />
+          <Property Name="siteID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inventory">
+          <Key>
+            <PropertyRef Name="itemID" />
+            <PropertyRef Name="siteID" />
+          </Key>
+          <Property Name="itemID" Type="Int32" Nullable="false" />
+          <Property Name="siteID" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="itemLocation" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reorderThreshold" Type="Int32" />
+          <Property Name="maxReorderWarning" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="itemID" />
+          </Key>
+          <Property Name="itemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sku" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="category" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="weight" Type="Decimal" Nullable="false" />
+          <Property Name="costPrice" Type="Decimal" Nullable="false" />
+          <Property Name="retailPrice" Type="Decimal" Nullable="false" />
+          <Property Name="supplierID" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="caseSize" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="posn">
+          <Key>
+            <PropertyRef Name="positionID" />
+          </Key>
+          <Property Name="positionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="permissionLevel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="province">
+          <Key>
+            <PropertyRef Name="provinceID" />
+          </Key>
+          <Property Name="provinceID" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="provinceName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="countryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="site">
+          <Key>
+            <PropertyRef Name="siteID" />
+          </Key>
+          <Property Name="siteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="provinceID" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="postalCode" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dayOfWeek" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="distanceFromWH" Type="Int32" Nullable="false" />
+          <Property Name="notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="supplierID" />
+          </Key>
+          <Property Name="supplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="province" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="postalcode" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contact" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="txn">
+          <Key>
+            <PropertyRef Name="txnID" />
+          </Key>
+          <Property Name="txnID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="siteIDTo" Type="Int32" Nullable="false" />
+          <Property Name="siteIDFrom" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="shipDate" Type="DateTime" Nullable="false" />
+          <Property Name="txnType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="barCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="createdDate" Type="DateTime" Nullable="false" />
+          <Property Name="deliveryID" Type="Int32" />
+          <Property Name="emergencyDelivery" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="txnaudit">
+          <Key>
+            <PropertyRef Name="txnAuditID" />
+          </Key>
+          <Property Name="txnAuditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="txnID" Type="Int32" Nullable="false" />
+          <Property Name="txnType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="txnDate" Type="DateTime" Nullable="false" />
+          <Property Name="SiteID" Type="Int32" Nullable="false" />
+          <Property Name="deliveryID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="txnitem">
+          <Key>
+            <PropertyRef Name="txnID" />
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="txnID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="txnstatu">
+          <Key>
+            <PropertyRef Name="statusName" />
+          </Key>
+          <Property Name="statusName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="statusDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="txntype">
+          <Key>
+            <PropertyRef Name="txnType1" />
+          </Key>
+          <Property Name="txnType1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vehicle">
+          <Key>
+            <PropertyRef Name="vehicleType" />
+          </Key>
+          <Property Name="vehicleType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maxWeight" Type="Decimal" Nullable="false" />
+          <Property Name="HourlyTruckCost" Type="Decimal" Nullable="false" />
+          <Property Name="costPerKem" Type="Decimal" Nullable="false" />
+          <Property Name="notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="bullseyedbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="deliveries" EntityType="Self.delivery" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="inventories" EntityType="Self.inventory" />
+          <EntitySet Name="items" EntityType="Self.item" />
+          <EntitySet Name="posns" EntityType="Self.posn" />
+          <EntitySet Name="provinces" EntityType="Self.province" />
+          <EntitySet Name="sites" EntityType="Self.site" />
+          <EntitySet Name="suppliers" EntityType="Self.supplier" />
+          <EntitySet Name="txns" EntityType="Self.txn" />
+          <EntitySet Name="txnaudits" EntityType="Self.txnaudit" />
+          <EntitySet Name="txnitems" EntityType="Self.txnitem" />
+          <EntitySet Name="txnstatus" EntityType="Self.txnstatu" />
+          <EntitySet Name="txntypes" EntityType="Self.txntype" />
+          <EntitySet Name="vehicles" EntityType="Self.vehicle" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bullseyedbModelStoreContainer" CdmEntityContainer="bullseyedbEntities">
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="bullseyedbModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="deliveries">
+            <EntityTypeMapping TypeName="bullseyedbModel.delivery">
+              <MappingFragment StoreEntitySet="delivery">
+                <ScalarProperty Name="deliveryID" ColumnName="deliveryID" />
+                <ScalarProperty Name="distanceCost" ColumnName="distanceCost" />
+                <ScalarProperty Name="vehicleType" ColumnName="vehicleType" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="bullseyedbModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="siteID" ColumnName="siteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inventories">
+            <EntityTypeMapping TypeName="bullseyedbModel.inventory">
+              <MappingFragment StoreEntitySet="inventory">
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="siteID" ColumnName="siteID" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="itemLocation" ColumnName="itemLocation" />
+                <ScalarProperty Name="reorderThreshold" ColumnName="reorderThreshold" />
+                <ScalarProperty Name="maxReorderWarning" ColumnName="maxReorderWarning" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="items">
+            <EntityTypeMapping TypeName="bullseyedbModel.item">
+              <MappingFragment StoreEntitySet="item">
+                <ScalarProperty Name="itemID" ColumnName="itemID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="sku" ColumnName="sku" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="costPrice" ColumnName="costPrice" />
+                <ScalarProperty Name="retailPrice" ColumnName="retailPrice" />
+                <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="caseSize" ColumnName="caseSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="posns">
+            <EntityTypeMapping TypeName="bullseyedbModel.posn">
+              <MappingFragment StoreEntitySet="posn">
+                <ScalarProperty Name="positionID" ColumnName="positionID" />
+                <ScalarProperty Name="permissionLevel" ColumnName="permissionLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="provinces">
+            <EntityTypeMapping TypeName="bullseyedbModel.province">
+              <MappingFragment StoreEntitySet="province">
+                <ScalarProperty Name="provinceID" ColumnName="provinceID" />
+                <ScalarProperty Name="provinceName" ColumnName="provinceName" />
+                <ScalarProperty Name="countryCode" ColumnName="countryCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sites">
+            <EntityTypeMapping TypeName="bullseyedbModel.site">
+              <MappingFragment StoreEntitySet="site">
+                <ScalarProperty Name="siteID" ColumnName="siteID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="provinceID" ColumnName="provinceID" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="dayOfWeek" ColumnName="dayOfWeek" />
+                <ScalarProperty Name="distanceFromWH" ColumnName="distanceFromWH" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="bullseyedbModel.supplier">
+              <MappingFragment StoreEntitySet="supplier">
+                <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="postalcode" ColumnName="postalcode" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="txns">
+            <EntityTypeMapping TypeName="bullseyedbModel.txn">
+              <MappingFragment StoreEntitySet="txn">
+                <ScalarProperty Name="txnID" ColumnName="txnID" />
+                <ScalarProperty Name="siteIDTo" ColumnName="siteIDTo" />
+                <ScalarProperty Name="siteIDFrom" ColumnName="siteIDFrom" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="shipDate" ColumnName="shipDate" />
+                <ScalarProperty Name="txnType" ColumnName="txnType" />
+                <ScalarProperty Name="barCode" ColumnName="barCode" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="deliveryID" ColumnName="deliveryID" />
+                <ScalarProperty Name="emergencyDelivery" ColumnName="emergencyDelivery" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="txnaudits">
+            <EntityTypeMapping TypeName="bullseyedbModel.txnaudit">
+              <MappingFragment StoreEntitySet="txnaudit">
+                <ScalarProperty Name="txnAuditID" ColumnName="txnAuditID" />
+                <ScalarProperty Name="txnID" ColumnName="txnID" />
+                <ScalarProperty Name="txnType" ColumnName="txnType" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="txnDate" ColumnName="txnDate" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="deliveryID" ColumnName="deliveryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="txnitems">
+            <EntityTypeMapping TypeName="bullseyedbModel.txnitem">
+              <MappingFragment StoreEntitySet="txnitems">
+                <ScalarProperty Name="txnID" ColumnName="txnID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="txnstatus">
+            <EntityTypeMapping TypeName="bullseyedbModel.txnstatu">
+              <MappingFragment StoreEntitySet="txnstatus">
+                <ScalarProperty Name="statusName" ColumnName="statusName" />
+                <ScalarProperty Name="statusDescription" ColumnName="statusDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="txntypes">
+            <EntityTypeMapping TypeName="bullseyedbModel.txntype">
+              <MappingFragment StoreEntitySet="txntype">
+                <ScalarProperty Name="txnType1" ColumnName="txnType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vehicles">
+            <EntityTypeMapping TypeName="bullseyedbModel.vehicle">
+              <MappingFragment StoreEntitySet="vehicle">
+                <ScalarProperty Name="vehicleType" ColumnName="vehicleType" />
+                <ScalarProperty Name="maxWeight" ColumnName="maxWeight" />
+                <ScalarProperty Name="HourlyTruckCost" ColumnName="HourlyTruckCost" />
+                <ScalarProperty Name="costPerKem" ColumnName="costPerKem" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
